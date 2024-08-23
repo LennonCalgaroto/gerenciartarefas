@@ -21,9 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td>${task.prioridade}</td>
                         <td>${task.responsavel || 'N/A'}</td>
                         <td>
-                            <a href="edit.html?id=${task.id}">Editar</a>
-                            <button class="delete-btn" data-id="${task.id}">Deletar</button>
-                        </td>
+                        ${task.status === "CONCLUIDO" ?
+                        '<span style="color: gray;"></span>' :
+                        `<a href="edit.html?id=${task.id}">Editar</a>`}
+                        <button class="delete-btn" data-id="${task.id}">Deletar</button>
+                    </td>
                     `;
                     taskList.appendChild(row);
                 });

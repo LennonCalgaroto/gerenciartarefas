@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Tarefa</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Editar Tarefa</h1>
+    <form id="edit-form">
+        <input type="hidden" id="task-id">
+        <input type="text" id="titulo" placeholder="Título da Tarefa" required>
+        <input type="text" id="descricao" placeholder="Descrição" required>
+        <button type="submit">Salvar Alterações</button>
+        <button type="button" id="delete-btn">Deletar Tarefa</button>
+    </form>
+</div>
+<script src="edit.js"></script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const editForm = document.getElementById('edit-form');
     const taskIdInput = document.getElementById('task-id');
+    const codigoInput = document.getElementById('codigo');
     const tituloInput = document.getElementById('titulo');
     const descricaoInput = document.getElementById('descricao');
     const statusInput = document.getElementById('status');
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(task => {
             taskIdInput.value = task.id;
+            codigoInput.value = task.codigo;
             tituloInput.value = task.titulo;
             descricaoInput.value = task.descricao;
             statusInput.value = task.status;
@@ -29,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         const id = taskIdInput.value;
+        const codigo = codigoInput.value;
         const titulo = tituloInput.value.trim();
         const descricao = descricaoInput.value.trim();
         const status = statusInput.value;
@@ -45,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+                codigo,
                 titulo,
                 descricao,
                 status,

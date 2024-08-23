@@ -55,6 +55,21 @@ select:focus {
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
 }
 
+input[type="number"],
+select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+input[type="number"]:focus,
+select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
 button {
     padding: 10px 20px;
     background-color: #007bff;

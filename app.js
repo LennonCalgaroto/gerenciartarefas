@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 tasks.forEach(task => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${task.id}</td>
+                        <td>${task.codigo}</td>
                         <td>${task.titulo}</td>
                         <td>${task.descricao}</td>
                         <td>${task.status}</td>
@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     taskForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
+        const codigo = document.getElementById('codigo').value;
         const titulo = document.getElementById('titulo').value.trim();
         const descricao = document.getElementById('descricao').value.trim();
         const status = document.getElementById('status').value.trim();
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const responsavel = document.getElementById('responsavel').value.trim();
 
         // Validate form inputs
-        if (!titulo || !descricao || !status || !prioridade || !responsavel) {
+        if (!codigo || !titulo || !descricao || !status || !prioridade || !responsavel) {
             alert('Por favor, preencha todos os campos.');
             return;
         }
@@ -81,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+                codigo,
                 titulo,
                 descricao,
                 status,

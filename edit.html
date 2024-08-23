@@ -13,9 +13,22 @@
         <input type="hidden" id="task-id">
         <input type="text" id="titulo" placeholder="Título da Tarefa" required>
         <input type="text" id="descricao" placeholder="Descrição" required>
+        <select id="status" required>
+            <option value="PENDENTE">Pendente</option>
+            <option value="EM_PROGRESSO">Em Progresso</option>
+            <option value="CONCLUIDO">Concluída</option>
+        </select>
+        <select id="prioridade" required>
+            <option value="BAIXA">Baixa</option>
+            <option value="MEDIA">Média</option>
+            <option value="ALTA">Alta</option>
+        </select>
+        <input type="text" id="responsavel" placeholder="Responsável" required>
         <button type="submit">Salvar Alterações</button>
-        <button type="button" id="delete-btn">Deletar Tarefa</button>
+
     </form>
+    <div id="message"></div> <!-- Área para mensagens de erro ou sucesso -->
+    <a href="index.html">Voltar</a>
 </div>
 <script src="edit.js"></script>
 </body>

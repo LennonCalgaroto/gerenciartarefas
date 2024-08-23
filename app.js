@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td>${task.dataAlteracao ? new Date(task.dataAlteracao).toLocaleString() : 'N/A'}</td>
                         <td>${task.dataConclusao ? new Date(task.dataConclusao).toLocaleString() : 'N/A'}</td>
                         <td>${task.prioridade}</td>
+                        <td>${task.responsavel || 'N/A'}</td>
                         <td>
                             <a href="edit.html?id=${task.id}">Editar</a>
                             <button class="delete-btn" data-id="${task.id}">Deletar</button>
@@ -62,13 +63,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const descricao = document.getElementById('descricao').value.trim();
         const status = document.getElementById('status').value.trim();
         const prioridade = document.getElementById('prioridade').value.trim();
-        const responsavel = ""; // Adicione o valor de responsável se necessário
+        const responsavel = document.getElementById('responsavel').value.trim();
 
         // Validate form inputs
-        if (!titulo || !descricao || !status || !prioridade) {
+        if (!titulo || !descricao || !status || !prioridade || !responsavel) {
             alert('Por favor, preencha todos os campos.');
             return;
         }
+
+        // Captura a data e hora locais no formato desejado
+        const now = new Date();
+        const dataCriacao = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}T${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
 
         fetch('http://localhost:8080/tarefas', {
             method: 'POST',
@@ -81,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 status,
                 prioridade,
                 responsavel,
-                dataCriacao: new Date().toISOString() // Set current date/time for creation
+                dataCriacao // Set current date/time for creation
             })
         })
             .then(response => {

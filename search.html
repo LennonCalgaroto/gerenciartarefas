@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Tarefa</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Buscar Tarefa</h1>
+    <form id="search-form">
+        <input type="text" id="task-id" placeholder="ID da Tarefa" required>
+        <button type="submit">Buscar Tarefa</button>
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Código</th>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Status</th>
+            <th>Data Criação</th>
+            <th>Data Alteração</th>
+            <th>Data Conclusão</th>
+            <th>Prioridade</th>
+            <th>Responsável</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody id="task-list"></tbody>
+    </table>
+    <a href="index.html" class="voltar-buscar">Voltar</a>
+</div>
+<script src="search.js"></script>
+</body>
+</html>

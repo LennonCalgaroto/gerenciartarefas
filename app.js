@@ -21,13 +21,58 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td>${task.prioridade}</td>
                         <td>${task.responsavel || 'N/A'}</td>
                         <td>
-                        ${task.status === "CONCLUIDO" ?
-                        '<span style="color: gray;"></span>' :
-                        `<a href="edit.html?id=${task.id}">Editar</a>`}
-                        <button class="delete-btn" data-id="${task.id}">Deletar</button>
-                    </td>
+                            ${task.status === "CONCLUIDO" ?
+                             '<span style="color: gray;">Concluída</span>' :
+                             `<a class="edit-btn" href="edit.html?id=${task.id}">Editar</a>
+                              <button class="conclude-btn" data-id="${task.id}">Concluir</button>`}
+                              <button class="delete-btn" data-id="${task.id}">Deletar</button>
+                        </td>
                     `;
                     taskList.appendChild(row);
+                });
+
+                document.querySelectorAll('.conclude-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const id = e.target.getAttribute('data-id');
+
+                        // Fetch the current task details before updating
+                        fetch(`http://localhost:8080/tarefas/${id}`)
+                            .then(response => response.json())
+                            .then(task => {
+
+                                const now = new Date();
+                                const dataConclusao = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}T${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+
+
+                                // Send the updated task back to the server
+                                fetch(`http://localhost:8080/tarefas/${id}`, {
+                                    method: 'PUT',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        codigo: task.codigo,
+                                        titulo: task.titulo,
+                                        descricao: task.descricao,
+                                        status: "CONCLUIDO",
+                                        prioridade: task.prioridade,
+                                        responsavel: task.responsavel,
+                                        dataCriacao: task.dataCriacao,
+                                        dataAlteracao: task.dataAlteracao,
+                                        dataConclusao: dataConclusao
+                                    })
+                                })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            window.location.reload(); // Reload the page to reflect the updated status
+                                        } else {
+                                            throw new Error('Failed to conclude task');
+                                        }
+                                    })
+                                    .catch(error => console.error('Error concluding task:', error));
+                            })
+                            .catch(error => console.error('Error fetching task details:', error));
+                    });
                 });
 
                 // Add event listeners for delete buttons

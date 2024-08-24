@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td>${task.codigo}</td>
                         <td>${task.titulo}</td>
                         <td>${task.descricao}</td>
-                        <td>${task.status}</td>
+                        <td class="status">${task.status === 'EM_PROGRESSO' ? 'EM PROGRESSO' : task.status}</td>
                         <td>${new Date(task.dataCriacao).toLocaleString()}</td>
                         <td>${task.dataAlteracao ? new Date(task.dataAlteracao).toLocaleString() : 'N/A'}</td>
                         <td>${task.dataConclusao ? new Date(task.dataConclusao).toLocaleString() : 'N/A'}</td>

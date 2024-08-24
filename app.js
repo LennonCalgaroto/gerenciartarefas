@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 tasks.forEach(task => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
+                        <td>${task.id}</td>
                         <td>${task.codigo}</td>
                         <td>${task.titulo}</td>
                         <td>${task.descricao}</td>
@@ -28,64 +29,64 @@ document.addEventListener('DOMContentLoaded', () => {
                               <button class="delete-btn" data-id="${task.id}">Deletar</button>
                         </td>
                     `;
-                    taskList.appendChild(row);
-                });
+            taskList.appendChild(row);
+    });
 
-                document.querySelectorAll('.conclude-btn').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        const id = e.target.getAttribute('data-id');
+document.querySelectorAll('.conclude-btn').forEach(button => {
+    button.addEventListener('click', (e) => {
+        const id = e.target.getAttribute('data-id');
 
-                        // Fetch the current task details before updating
-                        fetch(`http://localhost:8080/tarefas/${id}`)
-                            .then(response => response.json())
-                            .then(task => {
+        // Fetch the current task details before updating
+        fetch(`http://localhost:8080/tarefas/${id}`)
+            .then(response => response.json())
+            .then(task => {
 
-                                const now = new Date();
-                                const dataConclusao = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}T${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+                const now = new Date();
+                const dataConclusao = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}T${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
 
 
-                                // Send the updated task back to the server
-                                fetch(`http://localhost:8080/tarefas/${id}`, {
-                                    method: 'PUT',
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    },
-                                    body: JSON.stringify({
-                                        codigo: task.codigo,
-                                        titulo: task.titulo,
-                                        descricao: task.descricao,
-                                        status: "CONCLUIDO",
-                                        prioridade: task.prioridade,
-                                        responsavel: task.responsavel,
-                                        dataCriacao: task.dataCriacao,
-                                        dataAlteracao: task.dataAlteracao,
-                                        dataConclusao: dataConclusao
-                                    })
-                                })
-                                    .then(response => {
-                                        if (response.ok) {
-                                            window.location.reload(); // Reload the page to reflect the updated status
-                                        } else {
-                                            throw new Error('Failed to conclude task');
-                                        }
-                                    })
-                                    .catch(error => console.error('Error concluding task:', error));
-                            })
-                            .catch(error => console.error('Error fetching task details:', error));
-                    });
-                });
-
-                // Add event listeners for delete buttons
-                document.querySelectorAll('.delete-btn').forEach(button => {
-                    button.addEventListener('click', (e) => {
-                        const id = e.target.getAttribute('data-id');
-                        if (confirm('Tem certeza de que deseja deletar esta tarefa?')) {
-                            deleteTask(id);
+                // Send the updated task back to the server
+                fetch(`http://localhost:8080/tarefas/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        codigo: task.codigo,
+                        titulo: task.titulo,
+                        descricao: task.descricao,
+                        status: "CONCLUIDO",
+                        prioridade: task.prioridade,
+                        responsavel: task.responsavel,
+                        dataCriacao: task.dataCriacao,
+                        dataAlteracao: task.dataAlteracao,
+                        dataConclusao: dataConclusao
+                    })
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.reload(); // Reload the page to reflect the updated status
+                        } else {
+                            throw new Error('Failed to conclude task');
                         }
-                    });
-                });
+                    })
+                    .catch(error => console.error('Error concluding task:', error));
             })
-            .catch(error => console.error('Error fetching tasks:', error));
+            .catch(error => console.error('Error fetching task details:', error));
+    });
+});
+
+// Add event listeners for delete buttons
+document.querySelectorAll('.delete-btn').forEach(button => {
+    button.addEventListener('click', (e) => {
+        const id = e.target.getAttribute('data-id');
+        if (confirm('Tem certeza de que deseja deletar esta tarefa?')) {
+            deleteTask(id);
+        }
+    });
+});
+})
+.catch(error => console.error('Error fetching tasks:', error));
     }
 
     function deleteTask(id) {

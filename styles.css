@@ -1,13 +1,9 @@
-/* styles.css */
-
-/* Reset básico para margens e padding */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Configuração de fonte padrão */
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -15,7 +11,6 @@ body {
     background-color: #f4f4f4;
 }
 
-/* Container principal */
 .container {
     width: 80%;
     max-width: 1200px;
@@ -26,14 +21,12 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Título */
 h1 {
     color: #333;
     text-align: center;
     margin-bottom: 20px;
 }
 
-/* Estilo do formulário */
 form {
     display: flex;
     flex-direction: column;
@@ -69,7 +62,6 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* Estilo da tabela */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -99,7 +91,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Botão de deletar */
 .delete-btn {
     background-color: #dc3545;
     color: white;
@@ -114,7 +105,6 @@ a:hover {
     background-color: #c82333;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     .container {
         width: 95%;

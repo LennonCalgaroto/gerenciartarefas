@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const taskForm = document.getElementById('task-form');
     const taskList = document.getElementById('task-list');
 
-    // Fetch and display tasks
+    
     function fetchTasks() {
         fetch('http://localhost:8080/tarefas')
             .then(response => response.json())
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     taskList.appendChild(row);
                 });
 
-                // Add event listeners for delete buttons
+                
                 document.querySelectorAll('.delete-btn').forEach(button => {
                     button.addEventListener('click', (e) => {
                         const id = e.target.getAttribute('data-id');
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
             .then(response => {
                 if (response.ok) {
-                    fetchTasks(); // Refresh the task list
+                    fetchTasks(); 
                 } else {
                     throw new Error('Failed to delete task');
                 }
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => console.error('Error deleting task:', error));
     }
 
-    // Handle new task submission
+    
     taskForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -65,13 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const prioridade = document.getElementById('prioridade').value.trim();
         const responsavel = document.getElementById('responsavel').value.trim();
 
-        // Validate form inputs
+       
         if (!titulo || !descricao || !status || !prioridade || !responsavel) {
             alert('Por favor, preencha todos os campos.');
             return;
         }
 
-        // Captura a data e hora locais no formato desejado
+
         const now = new Date();
         const dataCriacao = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}T${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
 
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 status,
                 prioridade,
                 responsavel,
-                dataCriacao // Set current date/time for creation
+                dataCriacao 
             })
         })
             .then(response => {

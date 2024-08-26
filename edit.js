@@ -7,11 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const prioridadeInput = document.getElementById('prioridade');
     const responsavelInput = document.getElementById('responsavel');
 
-    // Get task ID from URL
     const params = new URLSearchParams(window.location.search);
     const taskId = params.get('id');
 
-    // Fetch task details
     fetch(`http://localhost:8080/tarefas/${taskId}`)
         .then(response => response.json())
         .then(task => {
@@ -24,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => console.error('Error fetching task:', error));
 
-    // Handle form submission
     editForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -50,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 status,
                 prioridade,
                 responsavel,
-                dataAlteracao // Inclui a data de alteração na requisição
+                dataAlteracao
             })
         })
             .then(response => {
